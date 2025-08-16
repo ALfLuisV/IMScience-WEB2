@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model article_participation {
+  article_participation_id Int       @id @default(autoincrement())
+  member_id                Int?
+  article_id               Int?
+  position                 String?   @db.VarChar
+  articles                 articles? @relation(fields: [article_id], references: [article_id], onDelete: NoAction, onUpdate: NoAction)
+  members                  members?  @relation(fields: [member_id], references: [member_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model articles {
+  article_id                        Int                     @id @default(autoincrement())
+  project                           Int?
+  field                             String?                 @db.VarChar
+  abstract                          String?                 @db.VarChar
+  referencias                       String?                 @db.VarChar
+  doi                               String?                 @db.VarChar
+  demo                              String?                 @db.VarChar
+  acknowledgment                    String?                 @db.VarChar
+  conference_name                   String?                 @db.VarChar
+  keywords                          String?                 @db.VarChar
+  conference_date                   DateTime?               @db.Date
+  conference_place                  String?                 @db.VarChar
+  article_participation             article_participation[]
+  project_articles_projectToproject project?                @relation("articles_projectToproject", fields: [project], references: [project_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model events {
+  event_id   Int         @id @default(autoincrement())
+  name       String?     @db.VarChar
+  event_date DateTime?   @db.Date
+  location   String?     @db.VarChar
+  mode       event_mode?
+  type       String?     @db.VarChar
+  audiencia  String?     @db.VarChar
+}
+
+model external_members {
+  external_members_id       Int                         @id @default(autoincrement())
+  name                      String?                     @db.VarChar
+  description               String?                     @db.VarChar
+  cpf                       String?                     @db.VarChar
+  country                   String?                     @db.VarChar
+  institution               String?                     @db.VarChar
+  external_members_projects external_members_projects[]
+}
+
+model external_members_projects {
+  external_members_projects_id Int               @id @default(autoincrement())
+  project_id                   Int?
+  external_member_id           Int?
+  association_date             DateTime?         @db.Date
+  external_members             external_members? @relation(fields: [external_member_id], references: [external_members_id], onDelete: NoAction, onUpdate: NoAction)
+  project                      project?          @relation(fields: [project_id], references: [project_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model members {
+  member_id             Int                     @id @default(autoincrement())
+  name                  String?                 @db.VarChar
+  position              member_position?
+  description           String?                 @db.VarChar
+  profile_pic           String?                 @db.VarChar
+  article_participation article_participation[]
+  project_participation project_participation[]
+}
+
+model project {
+  project_id                         Int                         @id @default(autoincrement())
+  name                               String?                     @db.VarChar
+  abstract                           String?                     @db.VarChar
+  members                            Int?
+  validity                           DateTime?                   @db.Date
+  articles_articles_projectToproject articles[]                  @relation("articles_projectToproject")
+  external_members_projects          external_members_projects[]
+  project_association                project_association[]
+  project_participation              project_participation[]
+}
+
+model project_associated {
+  project_associated_id Int                   @id @default(autoincrement())
+  name                  String?               @db.VarChar
+  type                  project_member_type?
+  cpf_cnpj              String?               @db.VarChar
+  project_association   project_association[]
+}
+
+model project_association {
+  pma_id             Int                 @id @default(autoincrement())
+  project_id         Int?
+  member_id          Int?
+  association_date   DateTime?           @db.Date
+  project_associated project_associated? @relation(fields: [member_id], references: [project_associated_id], onDelete: NoAction, onUpdate: NoAction)
+  project            project?            @relation(fields: [project_id], references: [project_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model project_participation {
+  project_participation_id Int       @id @default(autoincrement())
+  member_id                Int?
+  project_id               Int?
+  association_date         DateTime? @db.Date
+  members                  members?  @relation(fields: [member_id], references: [member_id], onDelete: NoAction, onUpdate: NoAction)
+  project                  project?  @relation(fields: [project_id], references: [project_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  uid           String     @id @db.VarChar
+  name          String?    @db.VarChar
+  email         String?    @unique(map: "users_email_uk") @db.VarChar
+  role          userRoles?
+  creation_date DateTime?  @db.Date
+  updation_date DateTime?  @db.Date
+  isActive      Boolean?
+}
+
+model remembermetoken {
+  uid            String   @id @db.VarChar
+  hashtoken      String   @db.VarChar(256)
+  expirationdate DateTime @db.Date
+}
+
+enum event_mode {
+  online
+  onsite
+}
+
+enum member_position {
+  professor
+  phd_student
+  msc_student
+  undergrade_student
+  volunteer
+}
+
+enum project_member_type {
+  personal
+  organization
+}
+
+enum userRoles {
+  admin
+}

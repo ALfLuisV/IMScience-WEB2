@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+
+.customFont {
+    font-family: "Anton", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+    color: #156D86;
+  }
+
+#mainContent {
+    display: grid;
+    grid-template-columns: 22% 78%;
+}

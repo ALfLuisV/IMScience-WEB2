@@ -1,0 +1,124 @@
+.mainContent {
+    display: grid;
+    grid-template-columns: 21% 79%;
+}
+
+.memberTypeTitle {
+    color: #156D86;
+    text-align: center;
+}
+
+.membersArea {
+    width: 100%;
+}
+
+.membersCardArea {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.memberCard {
+    height: 17rem;
+    width: 15rem;
+    border-radius: 15px;
+    border-color: #156D86;
+    margin-right: 3rem;
+    margin-bottom: 2rem;
+    justify-items: center;
+    background-color: #fafafa;
+}
+
+.profilePic{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+.picDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+}
+
+.roleName{
+    color: #156D86;
+    font-size: small;
+    margin-top: 7px;
+    text-align: center;
+    margin-bottom:7px;
+}
+
+/* .seeMoreButton{
+    background-color: #156D86;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease; 
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: auto;
+    width: 7rem;
+} */
+
+.buttonDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.memberCategory{
+    border-bottom: 3px solid #EFEFF3;
+}
+
+.filterArea{
+    margin-right: 40px;
+    padding-left: 20px;
+}
+
+.filterDiv{
+    padding-bottom: 20px;
+    border-bottom: 3px solid #EFEFF3;
+}
+
+#filterButton{
+    margin-top: 1.5rem;
+    width: 6rem;
+}
+
+.filterInputs{
+    padding: 10px 25px 20px 15px;
+    background-color: #fafafa;
+    height: 33rem;
+    border-radius: 20px;
+}
+
+body{
+    margin: 0 !important;
+}
+
+/* ............................... footer........ */
+
+.infoDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contactDiv{
+    display: flex;
+}
+
+.infoComponent{
+    width: 300px;
+    margin-left: 20px;
+    text-align: initial;
+}
+
+/* .footerrrr{
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 21%, rgba(21,109,134,1) 100%);
+} */

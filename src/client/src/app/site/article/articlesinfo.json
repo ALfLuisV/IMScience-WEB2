@@ -1,0 +1,41 @@
+{
+    "artigos": [
+      {
+        "id": 1,
+        "title": "Graph-Based Image Segmentation for Medical Applications",
+        "authors": "Ana Souza, Carlos Mendes",
+        "dateOfConference": "2025-09-12",
+        "doi": "10.1234/graph.image.segmentation",
+        "abstract": "This paper explores the application of graph theory to segment medical images. We propose a novel algorithm that models pixel connectivity as a weighted graph to achieve more accurate delineation of anatomical structures, demonstrating improvements over classical segmentation methods.",
+        "acknowledgments": "We acknowledge the support of the IMScience Research Group and the National Institute of Health for funding this project.",
+        "references": "Boykov Y, Jolly MP. Interactive Graph Cuts for Optimal Boundary & Region Segmentation. IEEE Trans. on PAMI, 2001.",
+        "keywords": "Graph Theory, Image Segmentation, Medical Imaging, Pixel Connectivity, Research",
+        "demo": "https://example.com/demo-graph-segmentation"
+      },
+      {
+        "id": 2,
+        "title": "Analyzing Social Networks Using Graph Neural Networks",
+        "authors": "Bruna Lima, Felipe Andrade",
+        "dateOfConference": "2025-11-23",
+        "doi": "10.5678/social.graph.nn",
+        "abstract": "This study introduces a deep learning framework that uses Graph Neural Networks (GNNs) to analyze social network structures. We demonstrate the effectiveness of GNNs in detecting communities and influential nodes within large social datasets.",
+        "acknowledgments": "The authors thank the Graph Research Lab and the IMScience Initiative for the computational resources provided.",
+        "references": "Kipf TN, Welling M. Semi-Supervised Classification with Graph Convolutional Networks. ICLR, 2017.",
+        "keywords": "Graph Neural Networks, Social Networks, Community Detection, Machine Learning, Graph Analysis",
+        "demo": "https://example.com/demo-social-graph"
+      },
+      {
+        "id": 3,
+        "title": "Graph-Based Models for Semantic Image Segmentation",
+        "authors": "Lucas Ferreira, Maria Oliveira",
+        "dateOfConference": "2025-06-15",
+        "doi": "10.9012/semantic.segmentation.graph",
+        "abstract": "We present a semantic segmentation method based on graph structures, where regions of an image are modeled as nodes. Our method improves segmentation accuracy in complex scenes by leveraging both spatial and semantic information encoded in graphs.",
+        "acknowledgments": "Thanks to the DeepVision group for their support and fruitful discussions throughout this project.",
+        "references": "Shi J, Malik J. Normalized Cuts and Image Segmentation. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2000.",
+        "keywords": "Semantic Segmentation, Graph Models, Image Processing, Computer Vision, Graph Cuts",
+        "demo": "https://example.com/demo-semantic-graph"
+      }
+    ]
+  }
+  

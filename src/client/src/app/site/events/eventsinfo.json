@@ -1,0 +1,124 @@
+{
+  "eventos": [
+    {
+      "id": 1,
+      "nome": "International Conference on Graph Theory and Applications",
+      "sigla": "ICGTA",
+      "local": "São Paulo, Brasil",
+      "data": "2025-03-15",
+      "descricao": "Conferência internacional dedicada a novas pesquisas e aplicações de teoria dos grafos em diversas áreas.",
+      "modo": "presencial",
+      "tipo": "conference",
+      "audiencia": "scientists",
+      "horario": "09:00"
+    },
+    {
+      "id": 2,
+      "nome": "Graph-Based Machine Learning Conference",
+      "sigla": "GBML",
+      "local": "Berlim, Alemanha",
+      "data": "2024-05-10",
+      "descricao": "Evento focado em como técnicas de aprendizado de máquina estão sendo aplicadas em grafos para resolução de problemas complexos.",
+      "modo": "presencial",
+      "tipo": "conference",
+      "audiencia": "industry",
+      "horario": "10:00"
+    },
+    {
+      "id": 3,
+      "nome": "Workshop on Graph Algorithms",
+      "sigla": "WGA",
+      "local": "online",
+      "data": "2024-06-22",
+      "descricao": "Workshop online sobre os últimos avanços em algoritmos de grafos para otimização e análise de redes.",
+      "modo": "online",
+      "tipo": "workshop",
+      "audiencia": "students",
+      "horario": "14:00"
+    },
+    {
+      "id": 4,
+      "nome": "Symposium on Graph Theory and Data Science",
+      "sigla": "SGTDS",
+      "local": "Paris, França",
+      "data": "2024-07-18",
+      "descricao": "Simposium que explora a conexão entre teoria dos grafos e ciência de dados, com ênfase em grandes conjuntos de dados.",
+      "modo": "presencial",
+      "tipo": "symposium",
+      "audiencia": "scientists",
+      "horario": "09:00"
+    },
+    {
+      "id": 5,
+      "nome": "International Workshop on Graph Mining",
+      "sigla": "IWGM",
+      "local": "Viena, Áustria",
+      "data": "2024-08-01",
+      "descricao": "Oficina internacional focada em técnicas de mineração de grafos e suas aplicações em diferentes áreas do conhecimento.",
+      "modo": "presencial",
+      "tipo": "workshop",
+      "audiencia": "industry",
+      "horario": "13:00"
+    },
+    {
+      "id": 6,
+      "nome": "Graph Theory in Natural Sciences",
+      "sigla": "GTNS",
+      "local": "Nova York, EUA",
+      "data": "2024-09-05",
+      "descricao": "Evento que explora como grafos são usados para modelar fenômenos naturais e sistemas complexos na ciência.",
+      "modo": "presencial",
+      "tipo": "seminar",
+      "audiencia": "scientists",
+      "horario": "10:00"
+    },
+    {
+      "id": 7,
+      "nome": "International Conference on Networks and Graphs",
+      "sigla": "ICNG",
+      "local": "Tóquio, Japão",
+      "data": "2024-10-20",
+      "descricao": "Conferência internacional sobre a teoria de grafos e redes complexas em engenharia, biologia e ciência da computação.",
+      "modo": "presencial",
+      "tipo": "conference",
+      "audiencia": "general",
+      "horario": "08:30"
+    },
+    {
+      "id": 8,
+      "nome": "Workshop on Graph Visualization and Analysis",
+      "sigla": "WGVA",
+      "local": "Londres, Reino Unido",
+      "data": "2024-11-03",
+      "descricao": "Workshop focado nas técnicas mais recentes de visualização e análise de grafos para grandes redes de dados.",
+      "modo": "presencial",
+      "tipo": "workshop",
+      "audiencia": "students",
+      "horario": "11:00"
+    },
+    {
+      "id": 9,
+      "nome": "Graph-Based Optimization in AI and ML",
+      "sigla": "GBOAI",
+      "local": "online",
+      "data": "2024-12-01",
+      "descricao": "Discussão sobre como otimizar algoritmos de IA e ML utilizando grafos e suas várias técnicas aplicadas.",
+      "modo": "online",
+      "tipo": "seminar",
+      "audiencia": "scientists",
+      "horario": "15:00"
+    },
+    {
+      "id": 10,
+      "nome": "Conference on Graph Theory and Applications in Computational Biology",
+      "sigla": "GTACB",
+      "local": "Boston, EUA",
+      "data": "2024-12-15",
+      "descricao": "Conferência que discute as aplicações da teoria dos grafos na biologia computacional, incluindo redes de interação entre proteínas e genomas.",
+      "modo": "presencial",
+      "tipo": "conference",
+      "audiencia": "scientists",
+      "horario": "09:30"
+    }
+  ]
+}
