@@ -17,7 +17,7 @@ class MemberRepository {
 
             return newMember;
         } catch (error) {
-            console.log("Erro ao cadastrar usuário" + error);
+            console.log("Erro ao cadastrar usuário " + error);
         }
     }
 
@@ -40,7 +40,7 @@ class MemberRepository {
         }
     }
 
-    async getInternal(){
+    async getEvents(){
         try{
             const membersList = await prisma.members.findMany();
             return membersList;

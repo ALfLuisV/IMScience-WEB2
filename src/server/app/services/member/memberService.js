@@ -44,7 +44,7 @@ class MemberService {
 
     async getAllInternalMembers() {
         try {
-            let InternalMembers = await this.memberRepository.getInternal();
+            let InternalMembers = await this.memberRepository.getEvents();
 
             await Promise.all(
                 InternalMembers.map(async (mem) => {
@@ -64,6 +64,5 @@ class MemberService {
     }
 
 }
-
 
 export default MemberService;

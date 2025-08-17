@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import '@ant-design/v5-patch-for-react-19';
 // import React, { useRef } from 'react';
-import userImage from '../../../public/user.png'
+import userImage from '../../../../public/user.png'
 import { Card, Typography, Button, Collapse, Input, Checkbox, Select, ConfigProvider, DatePicker } from 'antd';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -685,7 +685,6 @@ export default function members() {
     ];
 
 
-
     const [checkedList, setCheckedList] = useState([])
     const [selectList, setSelectList] = useState([])
     const [dateList, setDateList] = useState([])
@@ -720,8 +719,6 @@ export default function members() {
         ]
     )
     const [showAll, setShowAll] = useState([false, false, false, false])
-
-
 
 
     const onChange = (checkedValues) => {
@@ -857,7 +854,6 @@ export default function members() {
                     findbyDate = true
                 }
             }
-
 
 
             return (filter.memberType.length == 0 || findbyType) &&

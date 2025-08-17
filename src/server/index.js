@@ -2,6 +2,7 @@ import Api from './app/api/api.js'
 import AuthController from './app/controllers/auth/authController.js'
 import UserController from './app/controllers/user/userController.js'
 import MemberController from './app/controllers/member/memberController.js';
+import EventController from './app/controllers/event/eventController.js';
 
 function main() {
     const api = Api.build();
@@ -13,6 +14,7 @@ function main() {
     const authController = new AuthController();
     const userController = new UserController();
     const memberController = new MemberController();
+    const eventController =  new EventController();
 
     //*****************************LOGIN******************************************* */
     api.addPostRoute('/login', authController.authenticate.bind(authController), false);
@@ -22,6 +24,10 @@ function main() {
     //*********************************CRUD MEMBROS**************************** */
     api.addPostRoute('/members/addMember', memberController.addMember.bind(memberController), true);
     api.addGetRoute('/members/getAllInternal', memberController.getInternalMember.bind(memberController));
+    
+    //*********************************CRUD EVENTOS**************************** */
+    api.addPostRoute('/evnts/addEvent', eventController.addMember.bind(eventController), true);
+    api.addGetRoute('/events/getAllevents', eventController.getInternalMember.bind(eventController));
 
     // Iniciar o servidor após configurar todas as rotas
     api.start(PORT, HOST);

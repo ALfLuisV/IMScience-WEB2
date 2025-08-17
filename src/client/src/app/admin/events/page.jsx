@@ -15,101 +15,8 @@ const { Title } = Typography;
 
 
 
-const externalMembers = [
-    {
-        "external_members_id": 1,
-        "name": "Dr. Ricardo Oliveira",
-        "description": "Pesquisador sênior especializado em aprendizado de máquina e processamento de sinais.",
-        "cpf": "123.456.789-01",
-        "country": "Brasil",
-        "institution": "Universidade de São Paulo (USP)",
-        "projects": ["Análise Preditiva de Séries Temporais", "Detecção de Anomalias em Redes"]
-    },
-    {
-        "external_members_id": 2,
-        "name": "Dr. Emily Carter",
-        "description": "Postdoctoral researcher focusing on computational chemistry and materials science.",
-        "cpf": 'Vazio',
-        "country": "USA",
-        "institution": "Massachusetts Institute of Technology (MIT)",
-        "projects": ["Quantum Dot Simulation", "Molecular Dynamics of Polymers"]
-    },
-    {
-        "external_members_id": 3,
-        "name": "Fernanda Costa",
-        "description": "Mestranda desenvolvendo modelos de PLN para análise de sentimentos em redes sociais.",
-        "cpf": "234.567.890-12",
-        "country": "Brasil",
-        "institution": "Universidade Estadual de Campinas (UNICAMP)",
-        "projects": ["Classificador de Emoções em Textos em Português"]
-    },
-    {
-        "external_members_id": 4,
-        "name": "Lucas Martins",
-        "description": "Engenheiro de software colaborador em projetos de otimização de infraestrutura de nuvem.",
-        "cpf": "345.678.901-23",
-        "country": "Brasil",
-        "institution": "Tech Solutions Ltda.",
-        "projects": ["Framework de Backend Escalável", "Monitoramento de Performance de APIs"]
-    },
-    {
-        "external_members_id": 5,
-        "name": "Dr. Kenji Tanaka",
-        "description": "Visiting professor with expertise in robotics and computer vision.",
-        "cpf": 'Vazio',
-        "country": "Japan",
-        "institution": "University of Tokyo",
-        "projects": ["Robotic Arm Control using Reinforcement Learning"]
-    },
-    {
-        "external_members_id": 6,
-        "name": "Beatriz Almeida",
-        "description": "Aluna de graduação em iniciação científica na área de bioinformática e análise genômica.",
-        "cpf": "456.789.012-34",
-        "country": "Brasil",
-        "institution": "Universidade Federal de Minas Gerais (UFMG)",
-        "projects": ["Análise de Sequenciamento de Nova Geração (NGS)", "Estudo de Variantes Genéticas"]
-    },
-    {
-        "external_members_id": 7,
-        "name": "Dr. Aisha Khan",
-        "description": "Data scientist specializing in public health data analysis and epidemiological modeling.",
-        "cpf": 'Vazio',
-        "country": "United Kingdom",
-        "institution": "Imperial College London",
-        "projects": ["Epidemiological Modeling of Infectious Diseases", "Healthcare Data Visualization"]
-    },
-    {
-        "external_members_id": 8,
-        "name": "Hans Schmidt",
-        "description": "PhD candidate researching ethical AI and fairness in algorithms.",
-        "cpf": 'Vazio',
-        "country": "Germany",
-        "institution": "Technical University of Munich",
-        "projects": ["Bias Detection in Machine Learning Models"]
-    },
-    {
-        "external_members_id": 9,
-        "name": "Júlia Pereira",
-        "description": "Pesquisadora colaboradora em estudos sobre o impacto de energias renováveis na Amazônia.",
-        "cpf": "567.890.123-45",
-        "country": "Brasil",
-        "institution": "Instituto Nacional de Pesquisas da Amazônia (INPA)",
-        "projects": ["Otimização de Redes Elétricas Isoladas", "Modelagem de Fontes Solares"]
-    },
-    {
-        "external_members_id": 10,
-        "name": "Dr. Lena Petrova",
-        "description": "Expert in cybersecurity and cryptography.",
-        "cpf": 'Vazio',
-        "country": "Estonia",
-        "institution": "Cybernetica",
-        "projects": ["Blockchain Applications for Secure Voting", "Post-Quantum Cryptography"]
-    }
-]
 
-
-export default function membersPage() {
+export default function eventsPage() {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
@@ -123,7 +30,7 @@ export default function membersPage() {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [memberType, setMemberType] = useState('internal');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [members, setMembers] = useState([])
+    const [events, setEvents] = useState([])
 
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -426,21 +333,21 @@ export default function membersPage() {
 
 
     async function getInternalMembers() {
-            let members = await axios.get('http://localhost:7777/members/getAllInternal');
+            let events = await axios.get('http://localhost:7777/events/getAllInternal');
 
-            if(members.status !== 200){
+            if(events.status !== 200){
                 alert('Erro ao buscar membros.');
             }
 
             let membersArray = [];
             
-            for(const mem of members.data.memberData){
+            for(const mem of events.data.memberData){
                 let line = mem;
                 line.key = mem.member_id;
                 membersArray.push(line);
             }
 
-            setMembers(membersArray);
+            setEvents(membersArray);
 
     }
 
@@ -472,7 +379,7 @@ export default function membersPage() {
             }}
         >
             <div style={{ marginTop: '15px', marginLeft: '15px', maxHeight: '100%' }}>
-                <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>Members</Title>
+                <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>Events</Title>
                 <Divider orientation="left" plain></Divider>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ paddingTop: '10px' }}>
@@ -485,12 +392,12 @@ export default function membersPage() {
                             }}
                             style={{ marginBottom: '15px', boxShadow: '0 2px 8px 0 rgba(156, 156, 156, 0.25), 0 1.5px 4px 0 rgba(0,0,0,0.10)' }}
                         >
-                            <Radio.Button value="internal">Internal members</Radio.Button>
-                            <Radio.Button value="external">External members</Radio.Button>
+                            <Radio.Button value="internal">Internal events</Radio.Button>
+                            <Radio.Button value="external">External events</Radio.Button>
                         </Radio.Group>
                     </div>
                     <div id='tableType' style={{ paddingTop: '6px' }}>
-                        <Title level={4} style={{ marginBottom: '15px', color: '#156D86' }}>{`${memberType === 'internal' ? 'Internal' : 'External'} members`}</Title>
+                        <Title level={4} style={{ marginBottom: '15px', color: '#156D86' }}>{`${memberType === 'internal' ? 'Internal' : 'External'} events`}</Title>
                     </div>
                     <div id='addButton' style={{ paddingTop: '10px' }}>
                         {selectedRowKeys.length > 0 ? (
@@ -506,7 +413,7 @@ export default function membersPage() {
                                     boxShadow: '0 4px 16px 0 rgba(21, 109, 134, 0.25), 0 1.5px 4px 0 rgba(0,0,0,0.10)'
                                 }}
                             >
-                                {`Delete ${memberType} member(s)`}<CloseOutlined />
+                                {`Delete ${memberType} event(s)`}<CloseOutlined />
                             </Button>
                         ) : (
                             <Button
@@ -521,7 +428,7 @@ export default function membersPage() {
                                 }}
                                 onClick={(e) => { setIsModalOpen(true) }}
                             >
-                                {`Add ${memberType} member`}<PlusOutlined />
+                                {`Add ${memberType} event`}<PlusOutlined />
                             </Button>
                         )}
 
@@ -530,7 +437,7 @@ export default function membersPage() {
                 <div id='membersTables' style={{ justifyItems: 'left' }}>
                     <div id='membersTable' style={{ width: '100%' }}>
                         <Table columns={memberType === 'internal' ? internalMembersTableColumns : externalMembersTableColumns}
-                            dataSource={memberType === 'internal' ? members : externalMembers}
+                            dataSource={memberType === 'internal' ? events : externalMembers}
                             rowSelection={rowSelection}
                             rowKey={memberType === 'internal' ? "member_id" : "external_members_id"}
                             expandable={{
@@ -543,7 +450,7 @@ export default function membersPage() {
                     </div>
                 </div>
                 <Modal
-                    title="Add member"
+                    title="Add event"
                     open={isModalOpen}
                     onCancel={() => setIsModalOpen(false)}
                     footer={null}
@@ -554,4 +461,4 @@ export default function membersPage() {
             </div>
         </ConfigProvider >
     );
-};
+};  
