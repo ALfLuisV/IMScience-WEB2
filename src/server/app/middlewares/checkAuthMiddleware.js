@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase-admin/auth';
 import admin from 'firebase-admin';
 import express from 'express';
-import serviceAccount from '../../config/service-account-key-template.json' assert { type: "json" }
+import serviceAccount from '../../config/service-account-key-template.json' with  { type: "json" }
 import cookieParser from 'cookie-parser';
 import AuthController from '../controllers/auth/authController.js';
 import UserService from '../services/user/uservService.js';

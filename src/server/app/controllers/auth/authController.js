@@ -2,8 +2,7 @@ import auth from '../../Auth/firebaseConfig.js';
 import admin from 'firebase-admin';
 import crypto from 'crypto';
 import UserController from '../user/userController.js'
-import serviceAccount from '../../../config/service-account-key-template.json' assert { type: "json" }
-
+import serviceAccount from '../../../config/service-account-key-template.json' with { type: "json" };
 
 const userController = new UserController();
 const PROJECT_ID = "imscience-1c1f2";
