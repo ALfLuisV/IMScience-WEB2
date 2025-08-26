@@ -245,7 +245,6 @@ export default function EventsPage() {
                 },
             }}
         >
-            div
             <div style={{ margin: '15px', maxHeight: '100%' }}>
                 <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>Events</Title>
                 <Divider orientation="left" plain></Divider>

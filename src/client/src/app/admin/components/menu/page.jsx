@@ -22,10 +22,10 @@ const items = [
         icon: <IconEdit stroke={1.25} />,
         label: 'Management',
         children: [
-            { key: '10', icon: <IconArticle stroke={1.25} />, label: 'Articles' },
-            { key: '61', icon: <IconCalendarEvent stroke={1.25} />, label: 'Events' },
-            { key: '7', icon: <IconUsersGroup stroke={1.25} />, label: 'Members' },
-            { key: '8', icon: <IconFileSearch stroke={1.25} />, label: 'Projects' },
+            { key: '10', icon: <IconArticle stroke={1.25} />, label: <a href="/articles">Articles</a> },
+            { key: '61', icon: <IconCalendarEvent stroke={1.25} />, label: <a href="/events">Events</a> },
+            { key: '7', icon: <IconUsersGroup stroke={1.25} />, label: <a href="/members">Members</a> },
+            { key: '8', icon: <IconFileSearch stroke={1.25} />, label: <a href="/projects">Projects</a> },
         ],
     },
     {
@@ -33,18 +33,18 @@ const items = [
         icon: <IconNews stroke={1.25} />,
         label: 'News',
         children: [
-            { key: '5', icon: <IconAppWindow stroke={1.25} />, label: 'Site news' },
-            { key: '6', icon: <IconMailbox stroke={1.25} />, label: 'Newsletter' },
+            { key: '5', icon: <IconAppWindow stroke={1.25} />, label: <a href="/site news">Site news</a> },
+            { key: '6', icon: <IconMailbox stroke={1.25} />, label: <a href="/newsletter">Newsletter</a> },
         ],
     },
     {
         key: '3',
         icon: <IconSparkles stroke={1.25} />,
-        label: 'Highlights'
+        label: <a href="/highlights">Highlights</a>
     },
     {
         key: 'sub1',
-        label: 'Users',
+        label: <a href="/users">Users</a>,
         icon: <IconUserCog stroke={1.25} />,
     },
 ];
