@@ -9,7 +9,6 @@ import {
     CloseOutlined
 } from '@ant-design/icons';
 import { Button, Input, Space, Table, Typography, Radio, ConfigProvider, Divider, Modal } from 'antd';
-// import userProfile from '../../../../public/user.png'
 import userProfile from '../../../../public/user.png';
 import AddMemberModal from '../modals/addMember/page'
 const { Title } = Typography;
@@ -18,28 +17,28 @@ const { Title } = Typography;
 
 const articles = [
     {
-        "id": 1,
+        "article_id": 1,
         "name": "Attention Is All You Need",
         "field": "Inteligência Artificial",
         "doi": "10.48550/arXiv.1706.03762",
         "keywords": "machine learning, neural networks, transformers, natural language processing"
     },
     {
-        "id": 2,
+        "article_id": 2,
         "name": "A Review of Advancements and Challenges in CRISPR-Cas9 Genome Editing",
         "field": "Genética",
         "doi": "10.1016/j.tibs.2024.05.012",
         "keywords": "CRISPR, gene editing, biotechnology, molecular biology"
     },
     {
-        "id": 3,
+        "article_id": 3,
         "name": "Observation of Gravitational Waves from a Binary Black Hole Merger",
         "field": "Astrofísica",
         "doi": "10.1103/PhysRevLett.116.061102",
         "keywords": "gravitational waves, black holes, LIGO, general relativity"
     },
     {
-        "id": 4,
+        "article_id": 4,
         "name": "The Impact of Urban Green Spaces on Community Well-being in Belo Horizonte",
         "field": "Estudos Urbanos",
         "doi": "10.1177/0042098025134578",
@@ -62,7 +61,8 @@ export default function membersPage() {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [memberType, setMemberType] = useState('internal');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [members, setMembers] = useState([])
+    const [members, setMembers] = useState([]);
+    const [filterKeys, setFilterkeys] = useState([]);
 
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -175,9 +175,15 @@ export default function membersPage() {
         onChange: onSelectChange,
     };
 
+
+
+    function setFiltersArray(data) {
+        return new Set(data.flatMap((proj) => proj.keywords.split(', ')));
+    }
+
+
     const articleCollumns = [
         Table.SELECTION_COLUMN,
-        Table.EXPAND_COLUMN,
         Object.assign(
             Object.assign(
                 {
@@ -185,7 +191,7 @@ export default function membersPage() {
                     dataIndex: 'name',
                     key: 'name',
                     filteredValue: filteredInfo.name || null,
-                    sorter: (a, b) => a.name.localeCompare(b.name),
+                    sorter: (a, b) => a.name - b.name,
                     sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
                     width: '60%'
                 },
@@ -223,23 +229,12 @@ export default function membersPage() {
                     title: 'DOI',
                     dataIndex: 'doi',
                     key: 'doi',
+                    filteredValue: filteredInfo.name || null,
                     width: '20%',
-                    filters: [
-                        { text: 'Admin', value: 'admin' },
-                        { text: 'User', value: 'user' },
-                    ],
-                    filteredValue: filteredInfo.doi || null,
-                    onFilter: (value, record) => { return record.doi === value },
-                    sorter: (a, b) => a.doi.localeCompare(b.doi),
-                    sortOrder: sortedInfo.columnKey === 'position' ? sortedInfo.order : null,
-                    ellipsis: true,
                 },
+                getColumnSearchProps('doi', false),
             ),
 
-            {
-                sorter: (a, b) => a.position.localeCompare(b.position),
-                sortDirections: ['descend', 'ascend'],
-            },
         ),
         Object.assign(
             Object.assign(
@@ -248,47 +243,47 @@ export default function membersPage() {
                     dataIndex: 'keywords',
                     key: 'keywords',
                     width: '40%',
-                    filters: [
-                        { text: 'Admin', value: 'admin' },
-                        { text: 'User', value: 'user' },
-                    ],
+                    filters: filterKeys,
+                    filterSearch: true,
                     filteredValue: filteredInfo.keywords || null,
-                    onFilter: (value, record) => { return record.keywords === value },
-                    sorter: (a, b) => a.keywords.localeCompare(b.keywords),
-                    sortOrder: sortedInfo.columnKey === 'keywords' ? sortedInfo.order : null,
+                    onFilter: (value, record) => { return record.keywords.includes(value) },
                     ellipsis: true,
                 },
             ),
-
-            {
-                sorter: (a, b) => a.keywords.localeCompare(b.keywords),
-                sortDirections: ['descend', 'ascend'],
-            },
         ),
     ];
 
 
     async function getInternalMembers() {
-            let members = await axios.get('http://localhost:7777/members/getAllInternal');
+        let members = await axios.get('http://localhost:7777/members/getAllInternal');
 
-            if(members.status !== 200){
-                alert('Erro ao buscar membros.');
-            }
+        if (members.status !== 200) {
+            alert('Erro ao buscar membros.');
+        }
 
-            let membersArray = [];
-            
-            for(const mem of members.data.memberData){
-                let line = mem;
-                line.key = mem.member_id;
-                membersArray.push(line);
-            }
+        let membersArray = [];
 
-            setMembers(membersArray);
+        for (const mem of members.data.memberData) {
+            let line = mem;
+            line.key = mem.member_id;
+            membersArray.push(line);
+        }
+
+        setMembers(membersArray);
 
     }
 
     useEffect(() => {
-        getInternalMembers()
+        // getInternalMembers()
+        let keywords = setFiltersArray(articles);
+        
+        setFilterkeys([...keywords].map((key) => {
+            return {
+                text: key.charAt(0).toUpperCase() + key.slice(1),
+                value: key
+            }
+        }))
+
     }, [memberType]);
 
     return (
@@ -361,9 +356,9 @@ export default function membersPage() {
                         <Table columns={articleCollumns}
                             dataSource={articles}
                             rowSelection={rowSelection}
-                            rowKey={"id"}
+                            rowKey={"article_id"}
                             pagination={{ pageSize: 7, }}
-                            // onChange={memberType === 'internal' ? handleChange : handleChangeExternal}
+                            onChange={handleChange}
                             style={{ height: '400px' }}
                         />
                     </div>

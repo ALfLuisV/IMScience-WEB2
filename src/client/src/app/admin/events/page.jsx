@@ -9,7 +9,7 @@ import {
     CloseOutlined
 } from '@ant-design/icons';
 import { Button, Input, Space, Table, Typography, ConfigProvider, Divider, Modal } from 'antd';
-import AddEventModal from '../modals/addEvent/page'; 
+import AddEventModal from '../modals/addEvent/page';
 
 const { Title } = Typography;
 
@@ -18,7 +18,7 @@ const eventsData = [
         "event_id": 1,
         "name": "Semana de Tecnologia 2025",
         "description": "Uma semana inteira com palestras e workshops sobre as tecnologias mais recentes do mercado.",
-        "event_date": "2025-10-20",
+        "event_date": "2025-10-20 / 09:00",
         "location": "Centro de Convenções Principal",
         "mode": "Presencial",
         "type": "Congresso",
@@ -28,7 +28,7 @@ const eventsData = [
         "event_id": 2,
         "name": "Webinar: Introdução à Inteligência Artificial",
         "description": "Aprenda os conceitos fundamentais de IA com especialistas da área.",
-        "event_date": "2025-09-05",
+        "event_date": "2025-09-05 / 19:00",
         "location": "Plataforma Zoom",
         "mode": "Online",
         "type": "Webinar",
@@ -38,7 +38,7 @@ const eventsData = [
         "event_id": 3,
         "name": "Hackathon de Soluções Sustentáveis",
         "description": "Maratona de programação focada em criar soluções para problemas ambientais.",
-        "event_date": "2025-11-15",
+        "event_date": "2025-11-15 / 08:30",
         "location": "Campus da Universidade",
         "mode": "Presencial",
         "type": "Competição",
@@ -48,7 +48,7 @@ const eventsData = [
         "event_id": 4,
         "name": "Meetup de Desenvolvedores Front-End",
         "description": "Encontro mensal para discutir novidades em frameworks como React, Vue e Svelte.",
-        "event_date": "2025-08-30",
+        "event_date": "2025-08-30 / 18:00",
         "location": "Auditório Tech Hub / YouTube Live",
         "mode": "Híbrido",
         "type": "Meetup",
@@ -65,32 +65,32 @@ export default function EventsPage() {
     const [sortedInfo, setSortedInfo] = useState({});
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [events, setEvents] = useState([]); 
+    const [events, setEvents] = useState([]);
 
     // Função para buscar eventos da API
     async function getEvents() {
         try {
             // Descomente a linha abaixo para buscar dados reais da sua API
-        /*const response = await axios.get('http://localhost:7777/events/getAll');
-            if (response.status !== 200) {
-                alert('Erro ao buscar eventos.');
-                return;
-            }
-            const eventsFromApi = response.data.eventData;*/
+            /*const response = await axios.get('http://localhost:7777/events/getAll');
+                if (response.status !== 200) {
+                    alert('Erro ao buscar eventos.');
+                    return;
+                }
+                const eventsFromApi = response.data.eventData;*/
 
             // Usando dados mocados enquanto a API não está pronta
             const eventsFromApi = eventsData;
 
             const eventsArray = eventsFromApi.map(event => ({
                 ...event,
-                key: event.event_id, 
+                key: event.event_id,
             }));
-            
+
             setEvents(eventsArray);
 
         } catch (error) {
             console.error("Erro ao buscar eventos:", error);
-            
+
             const eventsArray = eventsData.map(event => ({ ...event, key: event.event_id }));
             setEvents(eventsArray);
         }
@@ -98,14 +98,14 @@ export default function EventsPage() {
 
     useEffect(() => {
         getEvents();
-    }, []); 
+    }, []);
 
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
         setFilteredInfo(filters);
         setSortedInfo(sorter);
     };
-    
+
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
         setSearchText(selectedKeys[0]);
@@ -118,41 +118,54 @@ export default function EventsPage() {
         setFilteredInfo({});
     };
 
-    const getColumnSearchProps = (dataIndex) => ({
+    const getColumnSearchProps = (dataIndex, external) => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
             <div style={{ padding: 8 }} onKeyDown={e => e.stopPropagation()}>
                 <Input
-                    ref={searchInput}
-                    placeholder={`Buscar ${dataIndex}`}
+                    ref={external ? searchInputExternal : searchInput}
+                    placeholder={`Search ${dataIndex}`}
                     value={selectedKeys[0]}
                     autoFocus
                     onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex, false)}
                     style={{ marginBottom: 8, display: 'block' }}
                 />
                 <Space>
                     <Button
                         type="primary"
-                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                        onClick={() => external ? handleSearchExternal(selectedKeys, confirm, dataIndex) : handleSearch(selectedKeys, confirm, dataIndex)}
                         icon={<SearchOutlined />}
                         size="small"
                         style={{ width: 90 }}
                     >
-                        Buscar
+                        Search
                     </Button>
                     <Button
-                        onClick={() => clearFilters && handleReset(clearFilters)}
+                        onClick={() => external ? clearFilters && handleResetExternal(clearFilters) : clearFilters && handleReset(clearFilters)}
                         size="small"
                         style={{ width: 90 }}
                     >
-                        Resetar
+                        Reset
                     </Button>
                     <Button
                         type="link"
                         size="small"
-                        onClick={() => close()}
+                        onClick={() => {
+                            confirm({ closeDropdown: false });
+                            setSearchText(selectedKeys[0]);
+                            external ? setSearchedColumnExternal(dataIndex) : setSearchedColumn(dataIndex);
+                        }}
                     >
-                        Fechar
+                        Filter
+                    </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            close();
+                        }}
+                    >
+                        close
                     </Button>
                 </Space>
             </div>
@@ -160,12 +173,20 @@ export default function EventsPage() {
         filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />,
         onFilter: (value, record) =>
             record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-        onFilterDropdownOpenChange: open => {
-            if (open) {
-                setTimeout(() => searchInput.current?.select(), 100);
-            }
+        filterDropdownProps: {
+            onOpenChange(open) {
+                if (open) {
+                    setTimeout(() => {
+                        var _a;
+                        return external ? ((_a = searchInputExternal.current) === null || _a === void 0 ? void 0 : _a.select()) :
+                            ((_a = searchInputExternal.current) === null || _a === void 0 ? void 0 : _a.select());
+                    }, 100);
+                }
+            },
         },
-        render: text => text,
+        render: text =>
+            external ?
+                (searchedColumnExternal === dataIndex ? (text) : (text)) : (searchedColumn === dataIndex ? (text) : (text))
     });
 
     const onSelectChange = newSelectedRowKeys => {
@@ -181,32 +202,45 @@ export default function EventsPage() {
     const eventsTableColumns = [
         Table.SELECTION_COLUMN,
         Table.EXPAND_COLUMN,
-        {
-            title: 'Event name',
-            dataIndex: 'name',
-            key: 'name',
-            sorter: (a, b) => a.name.localeCompare(b.name),
-            sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
-            ...getColumnSearchProps('name'),
-            width: '30%'
-        },
+        Object.assign(
+            Object.assign(
+                {
+                    title: 'Event name',
+                    dataIndex: 'name',
+                    key: 'name',
+                    filteredValue: filteredInfo.name || null,
+                    sorter: (a, b) => a.name.localeCompare(b.name),
+                    sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
+                    width: '30%'
+                },
+                getColumnSearchProps('name', false),
+            ),
+            {
+                sorter: (a, b) => a.name.localeCompare(b.name),
+                sortDirections: ['descend', 'ascend'],
+            },
+        ),
         {
             title: 'Date',
             dataIndex: 'event_date',
             key: 'event_date',
-            sorter: (a, b) => new Date(a.event_date) - new Date(b.event_date),
+            sorter: (a, b) => new Date(a.event_date.split(" / ")[0]) - new Date(b.event_date.split(" / ")[0]),
             sortOrder: sortedInfo.columnKey === 'event_date' ? sortedInfo.order : null,
+            filteredValue: filteredInfo.mode || null,
             width: '15%'
         },
-        {
-            title: 'Local',
-            dataIndex: 'location',
-            key: 'location',
-            sorter: (a, b) => a.location.localeCompare(b.location),
-            sortOrder: sortedInfo.columnKey === 'location' ? sortedInfo.order : null,
-            ...getColumnSearchProps('location'),
-            width: '25%'
-        },
+        Object.assign(
+            Object.assign(
+                {
+                    title: 'Local',
+                    dataIndex: 'location',
+                    key: 'location',
+                    filteredValue: filteredInfo.location || null,
+                    width: '25%'
+                },
+                getColumnSearchProps('location', false),
+            ),
+        ),
         {
             title: 'Mode',
             dataIndex: 'mode',
@@ -250,9 +284,9 @@ export default function EventsPage() {
                 <Divider orientation="left" plain></Divider>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
-                    <div/>
+                    <div />
                     <Title level={4} style={{ color: '#156D86' }}>Registered events</Title>
-                    
+
                     {selectedRowKeys.length > 0 ? (
                         <Button
                             type="primary"
