@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { Card, Typography, Button, Divider, Carousel, ConfigProvider, Input, Select, Modal, Slider } from 'antd';
 import { IconFileText, IconQuote, IconExternalLink, IconCopy } from '@tabler/icons-react';
 import '@ant-design/v5-patch-for-react-19';
-import userImage from '../../../public/user.png'
+import userImage from '../../../../public/user.png'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import style from './style/projects.module.css'
