@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import membersData from "@/app/members/membrosinfo.json";
-import eventsData from "@/app/events/eventsinfo.json";
-import articlesData from "@/app/article/articlesinfo.json";
+import membersData from "../members/membrosinfo.json";
+import eventsData from "../events/eventsinfo.json";
+import articlesData from "../article/articlesinfo.json";
 
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
