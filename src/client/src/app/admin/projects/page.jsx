@@ -9,40 +9,124 @@ import {
     CloseOutlined
 } from '@ant-design/icons';
 import { Button, Input, Space, Table, Typography, Radio, ConfigProvider, Divider, Modal } from 'antd';
-import userProfile from '../../../../public/user.png';
-import AddArticleModal from '../modals/addArticle/page'
+import userProfile from '../../../../public/user.png'
+import AddMemberModal from '../modals/addMember/page'
 const { Title } = Typography;
 
 
 
-const articles = [
+const projects = [
     {
-        "article_id": 1,
-        "name": "Attention Is All You Need",
-        "field": "Inteligência Artificial",
-        "doi": "10.48550/arXiv.1706.03762",
-        "keywords": "machine learning, neural networks, transformers, natural language processing"
+        "project_id": 5,
+        "name": "Plataforma de E-learning Corporativo",
+        "abstract": "Desenvolvimento de um ambiente virtual de aprendizagem para capacitação contínua dos colaboradores da empresa.",
+        "members": 10,
+        "validity": "2026-11-30"
     },
     {
-        "article_id": 2,
-        "name": "A Review of Advancements and Challenges in CRISPR-Cas9 Genome Editing",
-        "field": "Genética",
-        "doi": "10.1016/j.tibs.2024.05.012",
-        "keywords": "CRISPR, gene editing, biotechnology, molecular biology"
+        "project_id": 6,
+        "name": "Otimização da Logística de Entrega",
+        "abstract": "Implementação de um novo software de roteirização para reduzir custos e tempo de entrega dos produtos.",
+        "members": 7,
+        "validity": "2026-02-28"
     },
     {
-        "article_id": 3,
-        "name": "Observation of Gravitational Waves from a Binary Black Hole Merger",
-        "field": "Astrofísica",
-        "doi": "10.1103/PhysRevLett.116.061102",
-        "keywords": "gravitational waves, black holes, LIGO, general relativity"
+        "project_id": 7,
+        "name": "Campanha de Marketing Digital - Outono/Inverno",
+        "abstract": "Criação e execução de uma campanha publicitária online para promover a nova coleção de produtos sazonais.",
+        "members": 5,
+        "validity": "2026-07-31"
     },
     {
-        "article_id": 4,
-        "name": "The Impact of Urban Green Spaces on Community Well-being in Belo Horizonte",
-        "field": "Estudos Urbanos",
-        "doi": "10.1177/0042098025134578",
-        "keywords": "urban planning, green space, public health, sociology"
+        "project_id": 8,
+        "name": "Desenvolvimento de API Pública",
+        "abstract": "Criação de uma API RESTful para permitir a integração de serviços de terceiros com nossa plataforma principal.",
+        "members": 9,
+        "validity": "2027-01-15"
+    },
+    {
+        "project_id": 9,
+        "name": "Projeto de Sustentabilidade e Redução de Carbono",
+        "abstract": "Iniciativa para analisar e reduzir a pegada de carbono das operações da empresa em 20%.",
+        "members": 6,
+        "validity": "2026-12-31"
+    },
+    {
+        "project_id": 10,
+        "name": "Automação de Processos Financeiros",
+        "abstract": "Implementação de robôs (RPA) para automatizar tarefas repetitivas no departamento financeiro, como conciliação bancária.",
+        "members": 4,
+        "validity": "2026-05-20"
+    },
+    {
+        "project_id": 11,
+        "name": "Redesign do Website Institucional",
+        "abstract": "Modernização completa do design e da experiência do usuário (UX/UI) do website principal da companhia.",
+        "members": 8,
+        "validity": "2026-08-10"
+    },
+    {
+        "project_id": 12,
+        "name": "Análise de Big Data para Previsão de Vendas",
+        "abstract": "Utilização de modelos de machine learning para analisar dados históricos e prever tendências de vendas futuras.",
+        "members": 5,
+        "validity": "2027-04-01"
+    },
+    {
+        "project_id": 13,
+        "name": "Programa de Inovação Aberta",
+        "abstract": "Criação de um programa para colaborar com startups e universidades no desenvolvimento de novas tecnologias.",
+        "members": 3,
+        "validity": "2027-06-30"
+    },
+    {
+        "project_id": 14,
+        "name": "Implantação da Norma ISO 27001",
+        "abstract": "Projeto para adequar os processos de segurança da informação da empresa aos padrões da certificação ISO 27001.",
+        "members": 11,
+        "validity": "2026-10-25"
+    },
+    {
+        "project_id": 15,
+        "name": "Criação de um Chatbot de Atendimento",
+        "abstract": "Desenvolvimento de um assistente virtual com inteligência artificial para o atendimento ao cliente 24/7 no site.",
+        "members": 7,
+        "validity": "2026-03-18"
+    },
+    {
+        "project_id": 16,
+        "name": "Sistema de Business Intelligence (BI)",
+        "abstract": "Construção de dashboards interativos para visualização de dados e apoio à tomada de decisão estratégica.",
+        "members": 9,
+        "validity": "2027-02-12"
+    },
+    {
+        "project_id": 17,
+        "name": "Expansão para o Mercado Asiático",
+        "abstract": "Estudo de viabilidade e planejamento estratégico para a entrada da empresa em mercados selecionados da Ásia.",
+        "members": 6,
+        "validity": "2027-08-31"
+    },
+    {
+        "project_id": 18,
+        "name": "Gamificação do Treinamento de Vendas",
+        "abstract": "Transformar o processo de treinamento da equipe de vendas em uma experiência gamificada para aumentar o engajamento.",
+        "members": 4,
+        "validity": "2026-09-05"
+    },
+    {
+        "project_id": 19,
+        "name": "Desenvolvimento de Produto com IoT",
+        "abstract": "Criação de um novo produto conectado à Internet das Coisas para monitoramento remoto.",
+        "members": 15,
+        "validity": "2027-05-22"
+    },
+    {
+        "project_id": 20,
+        "name": "Reestruturação do Programa de Benefícios",
+        "abstract": "Análise e modernização do pacote de benefícios oferecido aos funcionários, com foco em flexibilidade e bem-estar.",
+        "members": 5,
+        "validity": "2026-04-30"
     }
 ]
 
@@ -53,19 +137,14 @@ export default function membersPage() {
     const searchInput = useRef(null);
     const [filteredInfo, setFilteredInfo] = useState({});
     const [sortedInfo, setSortedInfo] = useState({});
-    const [searchTextExternal, setSearchTextExternal] = useState('');
     const [searchedColumnExternal, setSearchedColumnExternal] = useState('');
     const searchInputExternal = useRef(null);
-    const [filteredInfoExternal, setFilteredInfoExternal] = useState({});
-    const [sortedInfoExternal, setSortedInfoExternal] = useState({});
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [memberType, setMemberType] = useState('internal');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [members, setMembers] = useState([]);
-    const [filterKeys, setFilterkeys] = useState([]);
+    const [members, setMembers] = useState([])
 
     const handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
         setFilteredInfo(filters);
         setSortedInfo(sorter);
     };
@@ -78,21 +157,6 @@ export default function membersPage() {
         setFilteredInfo({});
         clearFilters();
         setSearchText('');
-    };
-    const handleChangeExternal = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
-        setFilteredInfoExternal(filters);
-        setSortedInfoExternal(sorter);
-    };
-    const handleSearchExternal = (selectedKeys, confirm, dataIndex) => {
-        confirm();
-        setSearchTextExternal(selectedKeys[0]);
-        setSearchedColumnExternal(dataIndex);
-    };
-    const handleResetExternal = clearFilters => {
-        setFilteredInfoExternal({});
-        clearFilters();
-        setSearchTextExternal('');
     };
 
     const getColumnSearchProps = (dataIndex, external) => ({
@@ -175,127 +239,65 @@ export default function membersPage() {
         onChange: onSelectChange,
     };
 
-
-
-    function setFiltersArray(data) {
-        return new Set(data.flatMap((proj) => proj.keywords.split(', ')));
-    }
-
-
-    const articleCollumns = [
+    const projectColumns = [
         Table.SELECTION_COLUMN,
-        Object.assign(
+        Table.EXPAND_COLUMN,
             Object.assign(
                 {
                     title: 'Name',
                     dataIndex: 'name',
                     key: 'name',
+                    sorter: (a, b) => a.name.localeCompare(b.name),
+                    sortDirections: ['descend', 'ascend'],
                     filteredValue: filteredInfo.name || null,
-                    sorter: (a, b) => a.name - b.name,
                     sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
                     width: '60%'
                 },
-                getColumnSearchProps('name', false),
+                getColumnSearchProps('name', true),
             ),
-            {
-                sorter: (a, b) => a.name.localeCompare(b.name),
-                sortDirections: ['descend', 'ascend'],
-            },
-        ),
-        Object.assign(
-            Object.assign(
                 {
-                    title: 'Field',
-                    dataIndex: 'field',
-                    key: 'field',
-                    width: '20%',
-                    filteredValue: filteredInfo.field || null,
-                    onFilter: (value, record) => { return record.field === value },
-                    sorter: (a, b) => a.field.localeCompare(b.field),
-                    sortOrder: sortedInfo.columnKey === 'field' ? sortedInfo.order : null,
-                    ellipsis: true,
+                    title: 'Members',
+                    dataIndex: 'members',
+                    key: 'members',
+                    filteredValue: filteredInfo.members || null,
+                    sorter: (a, b) => a.members - b.members,
+                    sortDirections: ['descend', 'ascend'],
+                    sortOrder: sortedInfo.columnKey === 'members' ? sortedInfo.order : null,
+                    width: '10%'
                 },
-                getColumnSearchProps('field', false),
-            ),
-
-            {
-                sorter: (a, b) => a.field.localeCompare(b.field),
-                sortDirections: ['descend', 'ascend'],
-            },
-        ),
-        Object.assign(
-            Object.assign(
                 {
-                    title: 'DOI',
-                    dataIndex: 'doi',
-                    key: 'doi',
-                    filteredValue: filteredInfo.name || null,
-                    width: '20%',
+                    title: 'Validity',
+                    dataIndex: 'validity',
+                    key: 'validity',
+                    filteredValue: filteredInfo.validity || null,
+                    sortOrder: sortedInfo.columnKey === 'validity' ? sortedInfo.order : null,
+                    width: '30%'
                 },
-                getColumnSearchProps('doi', false),
-            ),
-
-        ),
-        Object.assign(
-            Object.assign(
-                {
-                    title: 'Keywords',
-                    dataIndex: 'keywords',
-                    key: 'keywords',
-                    width: '40%',
-                    filters: filterKeys,
-                    filterSearch: true,
-                    filteredValue: filteredInfo.keywords || null,
-                    onFilter: (value, record) => { return record.keywords.includes(value) },
-                    ellipsis: true,
-                },
-            ),
-        ),
-        {
-                    title: 'Actions',
-                    key: 'actions',
-                    render: (text, record) => (
-                        <Space size="middle">
-                            <EditOutlined style={{ fontSize: '20px', color: "#156D86", cursor: 'pointer' }} onClick={() => alert(`Editar ${record.name}`)} />
-                            <DeleteOutlined style={{ fontSize: '20px', color: '#b42020', cursor: 'pointer' }} onClick={() => alert(`Excluir ${record.name}`)} />
-                        </Space>
-                    ),
-                    width: '15%'
-                },
-    ];
+    ]
 
 
-    async function getInternalMembers() {
-        let members = await axios.get('http://localhost:7777/members/getAllInternal');
+    // async function getInternalMembers() {
+    //     let members = await axios.get('http://localhost:7777/members/getAllInternal');
 
-        if (members.status !== 200) {
-            alert('Erro ao buscar membros.');
-        }
+    //     if (members.status !== 200) {
+    //         alert('Erro ao buscar membros.');
+    //     }
 
-        let membersArray = [];
+    //     let membersArray = [];
 
-        for (const mem of members.data.memberData) {
-            let line = mem;
-            line.key = mem.member_id;
-            membersArray.push(line);
-        }
+    //     for (const mem of members.data.memberData) {
+    //         let line = mem;
+    //         line.key = mem.member_id;
+    //         membersArray.push(line);
+    //     }
 
-        setMembers(membersArray);
+    //     setMembers(membersArray);
 
-    }
+    // }
 
-    useEffect(() => {
-        // getInternalMembers()
-        let keywords = setFiltersArray(articles);
-        
-        setFilterkeys([...keywords].map((key) => {
-            return {
-                text: key.charAt(0).toUpperCase() + key.slice(1),
-                value: key
-            }
-        }))
-
-    }, [memberType]);
+    // useEffect(() => {
+    //     getInternalMembers()
+    // }, [memberType]);
 
     return (
         <ConfigProvider
@@ -321,11 +323,11 @@ export default function membersPage() {
             }}
         >
             <div style={{ marginTop: '15px', marginLeft: '15px', maxHeight: '100%' }}>
-                <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>Articles</Title>
+                <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>Projects</Title>
                 <Divider orientation="left" plain></Divider>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div id='tableType' style={{ paddingTop: '6px' }}>
-                        <Title level={4} style={{ marginBottom: '15px', marginLeft: '650px', color: '#156D86' }}> IMScience Articles</Title>
+                        <Title level={4} style={{ marginBottom: '15px', color: '#156D86' }}>Projects</Title>
                     </div>
                     <div id='addButton' style={{ paddingTop: '10px' }}>
                         {selectedRowKeys.length > 0 ? (
@@ -334,21 +336,21 @@ export default function membersPage() {
                                 danger
                                 size='small'
                                 style={{
-                                    width: '150px',
+                                    width: '200px',
                                     height: '25px',
                                     textAlign: 'center',
                                     borderRadius: '10px',
                                     boxShadow: '0 4px 16px 0 rgba(21, 109, 134, 0.25), 0 1.5px 4px 0 rgba(0,0,0,0.10)'
                                 }}
                             >
-                                {`Delete Articles(s)`}<CloseOutlined />
+                                {`Delete project(s)`}<CloseOutlined />
                             </Button>
                         ) : (
                             <Button
                                 type="primary"
                                 size='small'
                                 style={{
-                                    width: '130px',
+                                    width: '200px',
                                     height: '25px',
                                     textAlign: 'center',
                                     borderRadius: '10px',
@@ -356,7 +358,7 @@ export default function membersPage() {
                                 }}
                                 onClick={(e) => { setIsModalOpen(true) }}
                             >
-                                Add Articles<PlusOutlined />
+                                {`Add ${memberType} project`}<PlusOutlined />
                             </Button>
                         )}
 
@@ -364,24 +366,27 @@ export default function membersPage() {
                 </div>
                 <div id='membersTables' style={{ justifyItems: 'left' }}>
                     <div id='membersTable' style={{ width: '100%' }}>
-                        <Table columns={articleCollumns}
-                            dataSource={articles}
+                        <Table columns={projectColumns}
+                            dataSource={projects}
                             rowSelection={rowSelection}
-                            rowKey={"article_id"}
+                            rowKey={"project_id"}
+                            expandable={{
+                                expandedRowRender: record => <p style={{ margin: 0 }}>{record.abstract}</p>,
+                            }}
                             pagination={{ pageSize: 7, }}
-                            onChange={handleChange}
+                            onChange= {handleChange}
                             style={{ height: '400px' }}
                         />
                     </div>
                 </div>
                 <Modal
-                    title="Add article"
+                    title="Add project"
                     open={isModalOpen}
                     onCancel={() => setIsModalOpen(false)}
                     footer={null}
                     centered
                 >
-                    <AddArticleModal close={() => setIsModalOpen(false)} />
+                    <AddMemberModal close={() => setIsModalOpen(false)} />
                 </Modal>
             </div>
         </ConfigProvider >

@@ -15,34 +15,41 @@ const { Title } = Typography;
 
 
 
-const articles = [
+const news = [
     {
-        "article_id": 1,
-        "name": "Attention Is All You Need",
-        "field": "Inteligência Artificial",
-        "doi": "10.48550/arXiv.1706.03762",
-        "keywords": "machine learning, neural networks, transformers, natural language processing"
+        "news_id": 1,
+        "tittle": "Ataques de urso no Japão deixam dois feridos em supermercado e um morto",
+        "content": "O Japão está enfrentando um aumento no número de encontros entre humanos e ursos. Em um incidente recente, um urso entrou em um supermercado, ferindo duas pessoas. Em um ataque separado, um homem foi morto. As autoridades locais estão em alerta e pedem que a população tome cuidado.",
+        "data": "01-10-2025",
+        "tags": "Japão, ataques de animais, ursos, segurança pública"
     },
     {
-        "article_id": 2,
-        "name": "A Review of Advancements and Challenges in CRISPR-Cas9 Genome Editing",
-        "field": "Genética",
-        "doi": "10.1016/j.tibs.2024.05.012",
-        "keywords": "CRISPR, gene editing, biotechnology, molecular biology"
+        "news_id": 2,
+        "tittle": "Crise de reféns em Gaza: Conversas sobre cessar-fogo avançam",
+        "content": "As negociações para um cessar-fogo em Gaza estão mostrando sinais de progresso, com o Hamas anunciando que listas de reféns e prisioneiros foram trocadas com Israel. A comunidade internacional acompanha de perto, na esperança de uma resolução para o conflito que já dura dois anos.",
+        "data": "07-10-2025",
+        "tags": "Gaza, Israel, conflito, cessar-fogo, negociações de paz"
     },
     {
-        "article_id": 3,
-        "name": "Observation of Gravitational Waves from a Binary Black Hole Merger",
-        "field": "Astrofísica",
-        "doi": "10.1103/PhysRevLett.116.061102",
-        "keywords": "gravitational waves, black holes, LIGO, general relativity"
+        "news_id": 3,
+        "tittle": "Google expande recursos de IA na busca para mais idiomas",
+        "content": "O Google anunciou a expansão do seu Modo de IA na busca, incluindo o recurso 'Search Live' e suporte para sete novas línguas indianas. A empresa também apresentou o Gemini 2.5 Computer Use, um modelo de IA com habilidades de navegação na web semelhantes às humanas.",
+        "data": "08-10-2025",
+        "tags": "Google, inteligência artificial, tecnologia, busca na web, Gemini"
     },
     {
-        "article_id": 4,
-        "name": "The Impact of Urban Green Spaces on Community Well-being in Belo Horizonte",
-        "field": "Estudos Urbanos",
-        "doi": "10.1177/0042098025134578",
-        "keywords": "urban planning, green space, public health, sociology"
+        "news_id": 4,
+        "tittle": "Mercado de ações dos EUA se recupera com ouro atingindo recordes",
+        "content": "Wall Street viu uma recuperação nas ações, com o S&P 500 subindo 0.5% e se aproximando de sua máxima histórica. O preço do ouro continua a subir, ultrapassando os $4.000 por onça. O mercado financeiro segue aquecido, impulsionado por ações de tecnologia e IA.",
+        "data": "05-10-2025",
+        "tags": "mercado financeiro, ações, Wall Street, ouro, economia"
+    },
+    {
+        "news_id": 5,
+        "tittle": "Nações do rugby se unem para banir jogadores de liga rebelde",
+        "content": "Oito nações do rugby, incluindo a Inglaterra, se comprometeram a banir jogadores que participarem da liga rebelde R360. A decisão visa proteger a integridade das competições oficiais e manter a estrutura atual do esporte.",
+        "data": "04-10-2025",
+        "tags": "rugby, esportes, competições, R360, banimento"
     }
 ]
 
@@ -178,90 +185,68 @@ export default function membersPage() {
 
 
     function setFiltersArray(data) {
-        return new Set(data.flatMap((proj) => proj.keywords.split(', ')));
+        return new Set(data.flatMap((proj) => proj.tags.split(', ')));
     }
 
 
-    const articleCollumns = [
+    const newsCollumns = [
         Table.SELECTION_COLUMN,
         Object.assign(
             Object.assign(
                 {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    key: 'name',
-                    filteredValue: filteredInfo.name || null,
-                    sorter: (a, b) => a.name - b.name,
-                    sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
+                    title: 'Title',
+                    dataIndex: 'tittle',
+                    key: 'tittle',
+                    filteredValue: filteredInfo.tittle || null,
+                    sorter: (a, b) => a.tittle.localeCompare(b.tittle),
+                    sortOrder: sortedInfo.columnKey === 'tittle' ? sortedInfo.order : null,
                     width: '60%'
                 },
-                getColumnSearchProps('name', false),
+                getColumnSearchProps('tittle', false),
             ),
             {
-                sorter: (a, b) => a.name.localeCompare(b.name),
+                sorter: (a, b) => a.tittle.localeCompare(b.tittle),
                 sortDirections: ['descend', 'ascend'],
             },
         ),
-        Object.assign(
-            Object.assign(
-                {
-                    title: 'Field',
-                    dataIndex: 'field',
-                    key: 'field',
-                    width: '20%',
-                    filteredValue: filteredInfo.field || null,
-                    onFilter: (value, record) => { return record.field === value },
-                    sorter: (a, b) => a.field.localeCompare(b.field),
-                    sortOrder: sortedInfo.columnKey === 'field' ? sortedInfo.order : null,
-                    ellipsis: true,
-                },
-                getColumnSearchProps('field', false),
-            ),
+        {
+            title: 'Data',
+            dataIndex: 'data',
+            key: 'data',
+            width: '20%',
+            ellipsis: true,
 
-            {
-                sorter: (a, b) => a.field.localeCompare(b.field),
-                sortDirections: ['descend', 'ascend'],
-            },
-        ),
+            filteredValue: filteredInfo.data || null,
+            onFilter: (value, record) => record.data === value,
+            sorter: (a, b) => a.data.localeCompare(b.data),
+            sortOrder: sortedInfo.columnKey === 'data' ? sortedInfo.order : null,
+            sortDirections: ['descend', 'ascend'],
+            ...getColumnSearchProps('data', false),
+        },
         Object.assign(
             Object.assign(
                 {
-                    title: 'DOI',
-                    dataIndex: 'doi',
-                    key: 'doi',
+                    title: 'Tags',
+                    dataIndex: 'tags',
+                    key: 'tags',
                     filteredValue: filteredInfo.name || null,
                     width: '20%',
                 },
-                getColumnSearchProps('doi', false),
+                getColumnSearchProps('tags', false),
             ),
 
         ),
-        Object.assign(
-            Object.assign(
-                {
-                    title: 'Keywords',
-                    dataIndex: 'keywords',
-                    key: 'keywords',
-                    width: '40%',
-                    filters: filterKeys,
-                    filterSearch: true,
-                    filteredValue: filteredInfo.keywords || null,
-                    onFilter: (value, record) => { return record.keywords.includes(value) },
-                    ellipsis: true,
-                },
-            ),
-        ),
         {
-                    title: 'Actions',
-                    key: 'actions',
-                    render: (text, record) => (
-                        <Space size="middle">
-                            <EditOutlined style={{ fontSize: '20px', color: "#156D86", cursor: 'pointer' }} onClick={() => alert(`Editar ${record.name}`)} />
-                            <DeleteOutlined style={{ fontSize: '20px', color: '#b42020', cursor: 'pointer' }} onClick={() => alert(`Excluir ${record.name}`)} />
-                        </Space>
-                    ),
-                    width: '15%'
-                },
+            title: 'Actions',
+            key: 'actions',
+            render: (text, record) => (
+                <Space size="middle">
+                    <EditOutlined style={{ fontSize: '20px', color: "#156D86", cursor: 'pointer' }} onClick={() => alert(`Editar ${record.name}`)} />
+                    <DeleteOutlined style={{ fontSize: '20px', color: '#b42020', cursor: 'pointer' }} onClick={() => alert(`Excluir ${record.name}`)} />
+                </Space>
+            ),
+            width: '15%'
+        },
     ];
 
 
@@ -286,8 +271,8 @@ export default function membersPage() {
 
     useEffect(() => {
         // getInternalMembers()
-        let keywords = setFiltersArray(articles);
-        
+        let keywords = setFiltersArray(news);
+
         setFilterkeys([...keywords].map((key) => {
             return {
                 text: key.charAt(0).toUpperCase() + key.slice(1),
@@ -321,11 +306,11 @@ export default function membersPage() {
             }}
         >
             <div style={{ marginTop: '15px', marginLeft: '15px', maxHeight: '100%' }}>
-                <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>Articles</Title>
+                <Title level={2} style={{ color: '#156D86', marginTop: '10px' }}>News</Title>
                 <Divider orientation="left" plain></Divider>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div id='tableType' style={{ paddingTop: '6px' }}>
-                        <Title level={4} style={{ marginBottom: '15px', marginLeft: '650px', color: '#156D86' }}> IMScience Articles</Title>
+                        <Title level={4} style={{ marginBottom: '15px', marginLeft: '650px', color: '#156D86' }}> IMScience News</Title>
                     </div>
                     <div id='addButton' style={{ paddingTop: '10px' }}>
                         {selectedRowKeys.length > 0 ? (
@@ -341,7 +326,7 @@ export default function membersPage() {
                                     boxShadow: '0 4px 16px 0 rgba(21, 109, 134, 0.25), 0 1.5px 4px 0 rgba(0,0,0,0.10)'
                                 }}
                             >
-                                {`Delete Articles(s)`}<CloseOutlined />
+                                {`Delete news`}<CloseOutlined />
                             </Button>
                         ) : (
                             <Button
@@ -356,19 +341,22 @@ export default function membersPage() {
                                 }}
                                 onClick={(e) => { setIsModalOpen(true) }}
                             >
-                                Add Articles<PlusOutlined />
+                                Add news<PlusOutlined />
                             </Button>
                         )}
 
                     </div>
                 </div>
                 <div id='membersTables' style={{ justifyItems: 'left' }}>
-                    <div id='membersTable' style={{ width: '100%' }}>
-                        <Table columns={articleCollumns}
-                            dataSource={articles}
+                    <div id='newsTable' style={{ width: '100%' }}>
+                        <Table columns={newsCollumns}
+                            dataSource={news}
                             rowSelection={rowSelection}
-                            rowKey={"article_id"}
+                            rowKey={"news_id"}
                             pagination={{ pageSize: 7, }}
+                            expandable={{
+                                expandedRowRender: record => <p style={{ margin: 0 }}>{record.content}</p>,
+                            }}
                             onChange={handleChange}
                             style={{ height: '400px' }}
                         />

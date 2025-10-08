@@ -263,7 +263,7 @@ export default function EventsPage() {
                     <DeleteOutlined style={{ fontSize: '20px', color: '#b42020', cursor: 'pointer' }} onClick={() => alert(`Excluir ${record.name}`)} />
                 </Space>
             ),
-            width: '15%'
+            width: '5%'
         },
     ];
 
