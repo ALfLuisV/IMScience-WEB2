@@ -521,7 +521,7 @@ export default function membersPage() {
                                 }}
                                 onClick={(e) => { setIsModalOpen(true) }}
                             >
-                                {`Add ${memberType} member`}<PlusOutlined />
+                                {`Add member`}<PlusOutlined />
                             </Button>
                         )}
 

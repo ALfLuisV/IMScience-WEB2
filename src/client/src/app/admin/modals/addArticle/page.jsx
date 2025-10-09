@@ -6,22 +6,21 @@ import {
     ConfigProvider,
     Divider,
     Form,
-    message // Usar o message do Antd para feedback é melhor que 'alert'
+    message,
+    DatePicker,
+    InputNumber
 } from 'antd';
 import axios from 'axios';
 
 const { TextArea } = Input;
 
-// O prop 'refreshData' é opcional, mas recomendado para atualizar a tabela após adicionar um item.
 export default function AddArticleModal({ close, refreshData }) {
     const [form] = Form.useForm();
 
-    // Função para adicionar o artigo
     async function addArticle(values) {
         try {
             message.loading({ content: 'Adding article...', key: 'addArticle' });
 
-            // Endpoint hipotético para adicionar artigos. Ajuste conforme sua API.
             const response = await axios.post('http://localhost:7777/articles/addArticle', values);
 
             if (response.status === 201) { // 201 Created é um status comum para sucesso em POST
@@ -61,35 +60,84 @@ export default function AddArticleModal({ close, refreshData }) {
                     form={form}
                     layout="vertical"
                     variant='filled'
-                    onFinish={addArticle} // onFinish é chamado quando o formulário é submetido com sucesso
+                    onFinish={addArticle}
                 >
+                    {/* Campos alinhados com o model 'articles' */}
                     <Form.Item
-                        label="Article Name"
-                        name="name"
-                        rules={[{ required: true, message: 'Please input the article name!' }]}
+                        label="Project ID"
+                        name="project"
                     >
-                        <Input placeholder="Attention Is All You Need" />
+                        <InputNumber style={{ width: '100%' }} placeholder="e.g., 1" />
                     </Form.Item>
+
                     <Form.Item
                         label="Field"
                         name="field"
-                        rules={[{ required: true, message: 'Please input the scientific field!' }]}
                     >
                         <Input placeholder="Artificial Intelligence" />
                     </Form.Item>
+
                     <Form.Item
                         label="DOI (Digital Object Identifier)"
                         name="doi"
-                        rules={[{ required: true, message: 'Please input the DOI!' }]}
                     >
                         <Input placeholder="e.g., 10.48550/arXiv.1706.03762" />
                     </Form.Item>
+                    
+                    <Form.Item
+                        label="Conference Name"
+                        name="conference_name"
+                    >
+                        <Input placeholder="e.g., NeurIPS 2017" />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Conference Date"
+                        name="conference_date"
+                    >
+                        <DatePicker style={{ width: '100%' }} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Conference Place"
+                        name="conference_place"
+                    >
+                        <Input placeholder="e.g., Long Beach, CA, USA" />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Demo URL"
+                        name="demo"
+                    >
+                        <Input placeholder="https://example.com/demo" />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Abstract"
+                        name="abstract"
+                    >
+                        <TextArea rows={4} placeholder="Brief summary of the article..." />
+                    </Form.Item>
+
                     <Form.Item
                         label="Keywords"
                         name="keywords"
-                        rules={[{ required: true, message: 'Please input some keywords!' }]}
                     >
-                        <TextArea rows={3} placeholder="Comma-separated keywords, e.g., machine learning, neural networks" />
+                        <TextArea rows={2} placeholder="Comma-separated keywords, e.g., machine learning, neural networks" />
+                    </Form.Item>
+                    
+                    <Form.Item
+                        label="References"
+                        name="referencias"
+                    >
+                        <TextArea rows={3} placeholder="List of references..." />
+                    </Form.Item>
+                    
+                    <Form.Item
+                        label="Acknowledgment"
+                        name="acknowledgment"
+                    >
+                        <TextArea rows={2} placeholder="Acknowledgments..." />
                     </Form.Item>
 
                     <Divider orientation="left" plain />
@@ -102,7 +150,7 @@ export default function AddArticleModal({ close, refreshData }) {
                             key="add"
                             style={{ marginLeft: '10px' }}
                             type="primary"
-                            htmlType="submit" // Define o botão como gatilho de submit do formulário
+                            htmlType="submit"
                         >
                             Add Article
                         </Button>

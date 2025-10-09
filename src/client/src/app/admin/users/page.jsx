@@ -11,7 +11,7 @@ import {
 import { Button, Input, Space, Table, Typography, Radio, ConfigProvider, Divider, Modal } from 'antd';
 // import userProfile from '../../../../public/user.png'
 import userProfile from '../../../../public/user.png';
-import AddMemberModal from '../modals/addMember/page'
+import AddUserModal from '../modals/addUser/page';
 const { Title } = Typography;
 
 
@@ -386,7 +386,7 @@ export default function membersPage() {
                     footer={null}
                     centered
                 >
-                    <AddMemberModal close={() => setIsModalOpen(false)} />
+                    <AddUserModal close={() => setIsModalOpen(false)} />
                 </Modal>
             </div>
         </ConfigProvider >

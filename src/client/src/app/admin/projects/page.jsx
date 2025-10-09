@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Input, Space, Table, Typography, Radio, ConfigProvider, Divider, Modal } from 'antd';
 import userProfile from '../../../../public/user.png'
-import AddMemberModal from '../modals/addMember/page'
+import AddProjectModal from '../modals/addProject/page'
 const { Title } = Typography;
 
 
@@ -358,7 +358,7 @@ export default function membersPage() {
                                 }}
                                 onClick={(e) => { setIsModalOpen(true) }}
                             >
-                                {`Add ${memberType} project`}<PlusOutlined />
+                                {`Add project`}<PlusOutlined />
                             </Button>
                         )}
 
@@ -386,7 +386,7 @@ export default function membersPage() {
                     footer={null}
                     centered
                 >
-                    <AddMemberModal close={() => setIsModalOpen(false)} />
+                    <AddProjectModal close={() => setIsModalOpen(false)} />
                 </Modal>
             </div>
         </ConfigProvider >
